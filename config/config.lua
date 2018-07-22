@@ -29,8 +29,8 @@ cfg.scale = 1 -- The elements Scale
 
 cfg.frames = {
   main = {
-    width = 209, -- Width of the Player and Target Frames
-    height = 26, -- Height of the Player and Target Frames
+    width = 250, -- Width of the Player and Target Frames
+    height = 29, -- Height of the Player and Target Frames
     health = {
       margin = 2 -- Spacing between HP and Power Bars
     },
@@ -42,8 +42,8 @@ cfg.frames = {
     },
   },
   secondary = {
-    width = 101, -- Width of the ToT, Focus, Pet...
-    height = 20, -- Height of the ToT, Focus, Pet...
+    width = 120, -- Width of the ToT, Focus, Pet...
+    height = 29, -- Height of the ToT, Focus, Pet...
     margin = 8, -- Margin to other frames
     health = {
       margin = 2 -- Spacing between HP and Power Bars
@@ -72,7 +72,7 @@ cfg.units = {
     show = true,
     width = cfg.frames.main.width,
     height = cfg.frames.main.height,
-    pos = { a1 = "LEFT", a2 = "CENTER", af = "UIParent", x = -213, y = -310 },
+    pos = { a1 = "CENTER", a2 = "CENTER", af = "UIParent", x = -155, y = -390 },
     health = {
       classColored = true,
       gradientColored = true,
@@ -84,7 +84,7 @@ cfg.units = {
     power = {
       height = cfg.frames.main.power.height,
       classColored = false,
-      frequentUpdates =Ttrue,
+      frequentUpdates = true,
       smooth = true,
     },
     altpower = {
@@ -93,8 +93,8 @@ cfg.units = {
     castbar = {
       enable = true,
       color = {5/255, 107/255, 246/255},
-      width = cfg.frames.main.width * 2,
-      height = cfg.frames.main.height,
+      width = cfg.frames.main.width,
+      height = 20,
       latency = {
         show = false,
         color = {1, 0, 0, 0.5},
@@ -110,7 +110,7 @@ cfg.units = {
     show = true,
     width = cfg.frames.main.width,
     height = cfg.frames.main.height,
-    pos = { a1 = "BOTTOMLEFT", a2 = "BOTTOMRIGHT", af = "oUF_LumenPlayer", x = cfg.frames.secondary.margin, y = 0 },
+    pos = { a1 = "CENTER", a2 = "CENTER", af = "UIParent", x = 155, y = -390 },
     health = {
       classColored = true,
       gradientColored = false,
@@ -128,8 +128,8 @@ cfg.units = {
     castbar = {
       enable = true,
       color = {235/255, 25/255, 25/255},
-      width = cfg.frames.main.width * 1.75,
-      height = cfg.frames.main.height + 4,
+      width = cfg.frames.main.width,
+      height = 20,
     }
   },
 

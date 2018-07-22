@@ -385,7 +385,7 @@ local PostUpdateIcon =  function(icons, unit, icon, index, offset, filter, isDeb
 	end)
 end
 
--- Post Update BarTimer Aura
+--[[ Post Update BarTimer Aura
 local PostUpdateBarTimer = function(element, unit, button, index)
   local name, _, count, dtype, duration, expirationTime = UnitAura(unit, index, button.filter)
 
@@ -409,7 +409,7 @@ local PostUpdateBarTimer = function(element, unit, button, index)
   button:SetScript('OnUpdate', function(self, elapsed)
     auras:BarTimer_OnUpdate(self, elapsed)
   end)
-end
+end]]
 
 -- Filter Buffs
 local PlayerCustomFilter = function(icons, unit, icon, name)
@@ -582,7 +582,7 @@ local createStyle = function(self)
   debuffs.PostUpdateIcon = PostUpdateIcon
   self.Debuffs = debuffs
 
-  -- BarTimers Auras
+  --[[ BarTimers Auras
   local barTimers = auras:CreateBarTimer(self, 12, 12, 24, 2)
   barTimers:SetPoint("BOTTOMLEFT", self, "TOPLEFT", -2, cfg.frames.secondary.height + 16)
   barTimers.initialAnchor = "BOTTOMLEFT"
@@ -590,6 +590,7 @@ local createStyle = function(self)
   barTimers.CustomFilter = PlayerCustomFilter
   barTimers.PostUpdateIcon = PostUpdateBarTimer
   self.Buffs = barTimers
+  ]]
 end
 
 -- -----------------------------------
