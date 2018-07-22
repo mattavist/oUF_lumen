@@ -439,12 +439,12 @@ local createStyle = function(self)
   lum:globalStyle(self, "main")
 
   -- Text strings
-  core:createNameString(self, font_big, cfg.fontsize + 2, "THINOUTLINE", 4, 0, "LEFT", self.cfg.width - 60)
-  self:Tag(self.Name, '[lumen:level]  [lumen:name]')
-  core:createHPString(self, font, cfg.fontsize, "THINOUTLINE", -4, 0, "RIGHT")
-  self:Tag(self.Health.value, '[lumen:hpvalue]')
-  core:createHPPercentString(self, font, cfg.fontsize, nil, -32, 0, "LEFT", "BACKGROUND")
-  core:createPowerString(self, font, cfg.fontsize -4, "THINOUTLINE", 0, 0, "CENTER")
+  core:createNameString(self, font_big, cfg.fontsize + 6, "THINOUTLINE", 4, self.cfg.height / 3, "LEFT", self.cfg.width - 60)
+  self:Tag(self.Name, '[lumen:name]')
+  --core:createHPString(self, font, cfg.fontsize, "THINOUTLINE", -4, 0, "RIGHT")
+  --self:Tag(self.Health.value, '[lumen:hpvalue]')
+  core:createHPPercentString(self, font, cfg.fontsize, "THINOUTLINE", -4, 0, "RIGHT")
+  --core:createPowerString(self, font, cfg.fontsize -4, "THINOUTLINE", 0, 0, "CENTER")
 
   -- Health & Power Updates
   self.Health.PostUpdate = PostUpdateHealth
@@ -481,21 +481,21 @@ local createStyle = function(self)
 		CreateAlternativePower(self)
 	end
 
-  -- Combat indicator
+  --[[ Combat indicator
   local Combat = core:createFontstring(self, m.fonts.symbols, 20, "THINOUTLINE")
   Combat:SetPoint("RIGHT", self, "LEFT", -8, 2)
   Combat:SetText("")
   Combat:SetTextColor(255/255, 26/255, 48/255)
-  self.CombatIndicator = Combat
+  self.CombatIndicator = Combat]]
 
-  -- Resting
+  --[[ Resting
   if not core:isPlayerMaxLevel() then
     local Resting = core:createFontstring(self.Health, font, cfg.fontsize -4, "THINOUTLINE")
     Resting:SetPoint("CENTER", self.Health, "TOP", 0, 0)
     Resting:SetText("zZz")
     Resting:SetTextColor(255/255, 255/255, 255/255, 0.70)
     self.RestingIndicator = Resting
-  end
+  end]]
 
   -- oUF_Experience
   if cfg.elements.experiencebar.show then

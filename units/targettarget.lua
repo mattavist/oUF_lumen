@@ -37,7 +37,7 @@ local createStyle = function(self)
   lum:globalStyle(self, "secondary")
 
   -- Texts
-  core:createNameString(self, font_big, cfg.fontsize, "THINOUTLINE", 2, 0, "LEFT", self.cfg.width - 4)
+  core:createNameString(self, font_big, cfg.fontsize + 2, "THINOUTLINE", 4, self.cfg.height / 3, "RIGHT", self.cfg.width - 15)
   self:Tag(self.Name, '[lumen:name]')
   -- core:createHPString(self, font, cfg.fontsize - 4, "THINOUTLINE", -4, 0, "RIGHT")
   -- self:Tag(self.Health.value, '[lumen:hpperc]')

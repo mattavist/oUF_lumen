@@ -91,10 +91,9 @@ end
 
 function core:createHPPercentString(self, font, size, outline, x, y, point, layer)
   self.Health.percent = core:createFontstring(self.Health, font, size, outline, layer)
-  self.Health.percent:SetPoint(point, self.Health.value, x, y)
-  self.Health.percent:SetJustifyH("RIGHT")
-  self.Health.percent:SetTextColor(0.5, 0.5, 0.5, 0.5)
-  self.Health.percent:SetShadowColor(0, 0, 0, 0)
+  self.Health.percent:SetPoint(point, self.Health, x, y)
+  self.Health.percent:SetJustifyH(point)
+  self.Health.percent:SetTextColor(1, 1, 1, 1)
   self:Tag(self.Health.percent, '[lumen:hpperc]')
 end
 

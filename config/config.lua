@@ -20,7 +20,7 @@ cfg.colors = {
 -- > GENERAL
 -- -----------------------------------
 
-cfg.fontsize = 14 -- The Global Font Size
+cfg.fontsize = 18 -- The Global Font Size
 cfg.scale = 1 -- The elements Scale
 
 -- -----------------------------------
@@ -31,6 +31,8 @@ cfg.frames = {
   main = {
     width = 250, -- Width of the Player and Target Frames
     height = 29, -- Height of the Player and Target Frames
+    x_point = 155,
+    y_point = -390,
     health = {
       margin = 2 -- Spacing between HP and Power Bars
     },
@@ -72,7 +74,7 @@ cfg.units = {
     show = true,
     width = cfg.frames.main.width,
     height = cfg.frames.main.height,
-    pos = { a1 = "CENTER", a2 = "CENTER", af = "UIParent", x = -155, y = -390 },
+    pos = { a1 = "CENTER", a2 = "CENTER", af = "UIParent", x = - cfg.frames.main.x_point, y = -390 },
     health = {
       classColored = true,
       gradientColored = true,
@@ -110,7 +112,7 @@ cfg.units = {
     show = true,
     width = cfg.frames.main.width,
     height = cfg.frames.main.height,
-    pos = { a1 = "CENTER", a2 = "CENTER", af = "UIParent", x = 155, y = -390 },
+    pos = { a1 = "CENTER", a2 = "CENTER", af = "UIParent", x = cfg.frames.main.x_point, y = -390 },
     health = {
       classColored = true,
       gradientColored = false,
@@ -128,8 +130,8 @@ cfg.units = {
     castbar = {
       enable = true,
       color = {235/255, 25/255, 25/255},
-      width = cfg.frames.main.width,
-      height = 20,
+      width = (cfg.frames.main.width * 2) + 30,
+      height = 30,
     }
   },
 
@@ -137,7 +139,7 @@ cfg.units = {
     show = true,
     width = cfg.frames.secondary.width,
     height = cfg.frames.secondary.height,
-    pos = { a1 = "BOTTOMRIGHT", a2 = "TOPRIGHT", af = "oUF_LumenTarget", x = 0, y = cfg.frames.secondary.margin },
+    pos = { a1 = "BOTTOMRIGHT", a2 = "TOPRIGHT", af = "oUF_LumenTarget", x = 0, y = cfg.frames.secondary.margin * 2 },
     health = {
       classColored = true,
       gradientColored = false,

@@ -87,11 +87,11 @@ local createStyle = function(self)
   lum:globalStyle(self, "main")
 
   -- Texts
-  core:createNameString(self, font_big, cfg.fontsize + 2, "THINOUTLINE", 4, 0, "LEFT", self.cfg.width - 60)
+  core:createNameString(self, font_big, cfg.fontsize + 6, "THINOUTLINE", 4, self.cfg.height / 3, "RIGHT", self.cfg.width - 60)
   self:Tag(self.Name, '[lumen:level]  [lumen:name]')
-  core:createHPString(self, font, cfg.fontsize, "THINOUTLINE", -4, 0, "RIGHT")
-  self:Tag(self.Health.value, '[lumen:hpvalue]')
-  core:createHPPercentString(self, font, cfg.fontsize, nil, -32, 0, "LEFT", "BACKGROUND")
+  --core:createHPString(self, font, cfg.fontsize, "THINOUTLINE", 6, 0, "LEFT")
+  --self:Tag(self.Health.value, '[lumen:hpvalue]')
+  core:createHPPercentString(self, font, cfg.fontsize, "THINOUTLINE", 4, 0, "LEFT")
   core:createPowerString(self, font, cfg.fontsize -4, "THINOUTLINE", 0, 0, "CENTER")
   local clf = core:createFontstring(self, font, 11, "THINOUTLINE") -- classification
   clf:SetPoint("LEFT", self, "TOPLEFT", 0, 12)

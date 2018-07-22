@@ -71,7 +71,7 @@ tags['lumen:hpperc'] = function(unit)
     if percent < 100 and percent > 0 then
     	return percent .. '%'
     else
-    	return ''
+    	return core:shortNumber(min)
     end
   end
 events['lumen:hpperc'] = 'UNIT_HEALTH UNIT_MAXHEALTH UNIT_NAME_UPDATE'

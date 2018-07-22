@@ -1,6 +1,7 @@
 local _, ns = ...
 
 local m = {}
+local mediaPath = "Interface\\media\\"
 ns.m = m
 
 -- -----------------------------------
@@ -8,8 +9,8 @@ ns.m = m
 -- -----------------------------------
 
 m.fonts = {
-  font = "Interface\\AddOns\\oUF_lumen\\media\\font.ttf",
-  font_big = "Interface\\AddOns\\oUF_lumen\\media\\font2.ttf",
+  font = mediaPath.."Asap-Bold.ttf",
+  font_big = mediaPath.."ROADWAY.ttf",
   symbols = "Interface\\AddOns\\oUF_lumen\\media\\symbols.otf",
   symbols_light = "Interface\\AddOns\\oUF_lumen\\media\\symbols_light.otf",
 }
