@@ -20,8 +20,9 @@ cfg.colors = {
 -- > GENERAL
 -- -----------------------------------
 
-cfg.fontsize = 18 -- The Global Font Size
+cfg.fontsize = 14 -- The Global Font Size
 cfg.scale = 1 -- The elements Scale
+cfg.main_width = 260
 
 -- -----------------------------------
 -- > FRAMES
@@ -29,10 +30,10 @@ cfg.scale = 1 -- The elements Scale
 
 cfg.frames = {
   main = {
-    width = 250, -- Width of the Player and Target Frames
+    width = cfg.main_width, -- Width of the Player and Target Frames
     height = 29, -- Height of the Player and Target Frames
-    x_point = 155,
-    y_point = -390,
+    x_point = 0,
+    y_point = -644,
     health = {
       margin = 2 -- Spacing between HP and Power Bars
     },
@@ -55,8 +56,8 @@ cfg.frames = {
     },
   },
   shadow = {
-    show = true, -- Use frame drop shadows
-    opacity = 0.7,
+    show = false, -- Use frame drop shadows
+    opacity = 0,
   },
   range = {
     insideAlpha = 1,
@@ -74,7 +75,7 @@ cfg.units = {
     show = true,
     width = cfg.frames.main.width,
     height = cfg.frames.main.height,
-    pos = { a1 = "CENTER", a2 = "CENTER", af = "UIParent", x = - cfg.frames.main.x_point, y = -390 },
+    pos = { a1 = "CENTER", a2 = "CENTER", af = "UIParent", x = - cfg.frames.main.x_point, y = cfg.frames.main.y_point },
     health = {
       classColored = true,
       gradientColored = true,
@@ -111,9 +112,10 @@ cfg.units = {
   target = {
     show = true,
     width = cfg.frames.main.width,
-    height = cfg.frames.main.height,
-    pos = { a1 = "CENTER", a2 = "CENTER", af = "UIParent", x = cfg.frames.main.x_point, y = -390 },
+    height = 4,
+    pos = { a1 = "CENTER", a2 = "CENTER", af = "UIParent", x = cfg.frames.main.x_point, y = -430 },
     health = {
+      height = 3,
       classColored = true,
       gradientColored = false,
       classColoredText = false,
@@ -122,7 +124,7 @@ cfg.units = {
       smooth = true,
     },
     power = {
-      height = cfg.frames.main.power.height,
+      height = 0,
       classColored = false,
       frequentUpdates = true,
       smooth = true,
@@ -136,9 +138,9 @@ cfg.units = {
   },
 
   targettarget = {
-    show = true,
+    show = false,
     width = cfg.frames.secondary.width,
-    height = cfg.frames.secondary.height,
+    height = cfg.frames.secondary.height / 2,
     pos = { a1 = "BOTTOMRIGHT", a2 = "TOPRIGHT", af = "oUF_LumenTarget", x = 0, y = cfg.frames.secondary.margin * 2 },
     health = {
       classColored = true,

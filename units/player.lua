@@ -21,6 +21,7 @@ local PostUpdateHealth = function(health, unit, min, max)
   if cfg.units[frame].health.gradientColored then
     local r, g, b = oUF.ColorGradient(min, max, 1,0,0, 1,1,0, unpack(core:raidColor(unit)))
     health:SetStatusBarColor(r, g, b)
+    health.percent:SetTextColor(r, g, b, 1)
   end
 
   -- Class colored text
@@ -192,7 +193,7 @@ local CreateAdditionalPower = function(self)
   AdditionalPower:SetStatusBarTexture(m.textures.status_texture)
   AdditionalPower:GetStatusBarTexture():SetHorizTile(false)
   AdditionalPower:SetSize(self.cfg.width, self.cfg.altpower.height)
-  AdditionalPower:SetPoint("TOPLEFT", self.Power, "BOTTOMLEFT", 0, height)
+  AdditionalPower:SetPoint("BOTTOM", self.Health, "TOP", 0, 225)
   AdditionalPower.colorPower = true
 
   -- Add a background
@@ -439,12 +440,16 @@ local createStyle = function(self)
   lum:globalStyle(self, "main")
 
   -- Text strings
-  core:createNameString(self, font_big, cfg.fontsize + 6, "THINOUTLINE", 4, self.cfg.height / 3, "LEFT", self.cfg.width - 60)
-  self:Tag(self.Name, '[lumen:name]')
+  --core:createNameString(self, font_big, cfg.fontsize + 6, "THINOUTLINE", 4, self.cfg.height / 3, "LEFT", self.cfg.width - 60)
+  --self:Tag(self.Name, '[lumen:name]')
   --core:createHPString(self, font, cfg.fontsize, "THINOUTLINE", -4, 0, "RIGHT")
   --self:Tag(self.Health.value, '[lumen:hpvalue]')
-  core:createHPPercentString(self, font, cfg.fontsize, "THINOUTLINE", -4, 0, "RIGHT")
-  --core:createPowerString(self, font, cfg.fontsize -4, "THINOUTLINE", 0, 0, "CENTER")
+  core:createHPPercentString(self, font_big, cfg.fontsize + 30, "THICKOUTLINE", -100, 385, "RIGHT")
+
+  self:Tag(self.Health.percent, '[lumen:hpperc]')
+  core:createPowerString(self, font, cfg.fontsize + 16, "THICKOUTLINE", -300, 500, "CENTER")
+  self.Power.value:SetPoint("BOTTOMRIGHT", self.Health.percent, "BOTTOMLEFT", 0, 0)
+
 
   -- Health & Power Updates
   self.Health.PostUpdate = PostUpdateHealth

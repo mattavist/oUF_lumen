@@ -98,7 +98,7 @@ end
 
 -- The Shared Style Function
 function lum:globalStyle(self, type)
-	core:setBackdrop(self, 2, 2, 2, 2)
+	core:setBackdrop(self, 2, 2, 1, 1)
 
 	if(self.mystyle ~= 'party' and self.mystyle ~= 'raid' and self.mystyle ~= 'boss' and self.mystyle ~= 'arena') then
 		self:SetSize(self.cfg.width, self.cfg.height)
@@ -111,7 +111,7 @@ function lum:globalStyle(self, type)
 
   -- HP Bar
   self.Health = CreateFrame("StatusBar", nil, self)
-	self.Health:SetHeight(self.cfg.height - cfg.frames[type].health.margin - self.cfg.power.height)
+	self.Health:SetHeight(self.cfg.height)
 	self.Health:SetWidth(self.cfg.width)
 	self.Health:SetPoint("TOP")
   self.Health:SetStatusBarTexture(m.textures.status_texture)
@@ -125,7 +125,7 @@ function lum:globalStyle(self, type)
   self.Health.bg:SetTexture(m.textures.bg_texture)
 
   -- Power Bar
-  self.Power = CreateFrame("StatusBar", nil, self)
+  self.Power = CreateFrame("StatusBar", nil, self)--[[
 	self.Power:SetHeight(cfg.frames[type].power.height)
 	self.Power:SetWidth(self.cfg.width)
   self.Power:SetStatusBarTexture(m.textures.status_texture)
@@ -136,7 +136,7 @@ function lum:globalStyle(self, type)
   self.Power.bg = self.Power:CreateTexture(nil, "BACKGROUND")
   self.Power.bg:SetAllPoints(self.Power)
   self.Power.bg:SetTexture(m.textures.bg_texture)
-  self.Power.bg:SetAlpha(0.20)
+  self.Power.bg:SetAlpha(0.20)]]
 
   -- Colors
   if self.cfg.health.classColored then self.Health.colorClass = true end

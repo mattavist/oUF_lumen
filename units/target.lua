@@ -15,6 +15,10 @@ local frame = "target"
 -- Post Health Update
 local PostUpdateHealth = function(health, unit, min, max)
   local self = health.__owner
+  local width = 1.1 * self.Name:GetStringWidth()
+
+  self:SetWidth(width)
+  self.Health:SetWidth(width)
 
   if cfg.units[frame].health.gradientColored then
     local r, g, b = oUF.ColorGradient(min, max, 1,0,0, 1,1,0, unpack(core:raidColor(unit)))
@@ -25,6 +29,7 @@ local PostUpdateHealth = function(health, unit, min, max)
   if cfg.units[frame].health.classColoredText then
     self.Name:SetTextColor(unpack(core:raidColor(unit)))
   end
+
 end
 
 -- Post Update Aura Icon
@@ -87,28 +92,25 @@ local createStyle = function(self)
   lum:globalStyle(self, "main")
 
   -- Texts
-  core:createNameString(self, font_big, cfg.fontsize + 6, "THINOUTLINE", 4, self.cfg.height / 3, "RIGHT", self.cfg.width - 60)
-  self:Tag(self.Name, '[lumen:level]  [lumen:name]')
-  --core:createHPString(self, font, cfg.fontsize, "THINOUTLINE", 6, 0, "LEFT")
-  --self:Tag(self.Health.value, '[lumen:hpvalue]')
-  core:createHPPercentString(self, font, cfg.fontsize, "THINOUTLINE", 4, 0, "LEFT")
-  core:createPowerString(self, font, cfg.fontsize -4, "THINOUTLINE", 0, 0, "CENTER")
-  local clf = core:createFontstring(self, font, 11, "THINOUTLINE") -- classification
-  clf:SetPoint("LEFT", self, "TOPLEFT", 0, 12)
-  clf:SetTextColor(1, 1, 1, 1)
-  self:Tag(clf, '[lumen:classification]')
+  core:createNameString(self, font_big, cfg.fontsize + 20, "THICKOUTLINE", 0, -4, "CENTER", self.cfg.width * 3)
+  self:Tag(self.Name, '[lumen:name]')
+  ChatFrame1:AddMessage(self.Name:GetStringWidth())
+  core:createHPPercentString(self, font_big, cfg.fontsize + 30, "THICKOUTLINE", 100, 171, "LEFT")
+
+  self:Tag(self.Health.percent, '[raidcolor][lumen:hpperc]')
+  self:SetWidth(self.Name:GetStringWidth())
 
   -- Health & Power Updates
   self.Health.PostUpdate = PostUpdateHealth
 
-  -- Buffs
+  --[[ Buffs
   local buffs = auras:CreateAura(self, 8, 1, cfg.frames.secondary.height + 4, 2)
   buffs:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, 2)
   buffs.initialAnchor = "BOTTOMLEFT"
   buffs["growth-x"] = "RIGHT"
   buffs.showStealableBuffs = true
   buffs.PostUpdateIcon = PostUpdateIcon
-  self.Buffs = buffs
+  self.Buffs = buffs]]
 
   -- Castbar
     if self.cfg.castbar.enable then

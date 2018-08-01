@@ -154,24 +154,25 @@ local createStyle = function(self, unit)
   self.Health = health
 
   -- Name strings
-  core:createNameString(self, font_big, cfg.fontsize - 3, "THINOUTLINE", 0, 4, "CENTER", self.cfg.width - 4)
+  core:createNameString(self, font_big, cfg.fontsize - 5, "THINOUTLINE", 0, (self.cfg.height)/2, "CENTER", self.cfg.width - 4)
   self:Tag(self.Name, '[lumen:name]')
 
-  -- Health Percentage
-  health.percent = core:createFontstring(self.Health, font_big, cfg.fontsize - 3, "THINOUTLINE", "BACKGROUND")
-  health.percent:SetPoint("LEFT", self.Health, 23, 0)
-  health.percent:SetJustifyH("RIGHT")
+  --[[ Health Percentage
+  health.percent = core:createFontstring(self.Health, font_big, cfg.fontsize - 3, "THINOUTLINE", "OVERLAY")
+  health.percent:SetPoint("LEFT", self.Health, "LEFT", 0, -(self.cfg.height)/2)
+  health.percent:SetJustifyH("LEFT")
   health.percent:SetWidth(self.cfg.width)
-  health.percent:SetTextColor(0.8, 0.8, 0.8, 0.8)
   self:Tag(health.percent, '[lumen:hpperc]')
+  ]]
 
-  -- Level
+  --[[ Level
   self.level = core:createFontstring(self.Health, font_big, cfg.fontsize - 2, "THINOUTLINE")
   self.level:SetPoint("TOPRIGHT", self.Health, -18, 0)
   self.level:SetJustifyH("LEFT")
   self.level:SetWidth(self.cfg.width)
   self.level:SetHeight(self.cfg.height)
   self:Tag(self.level, '[lumen:levelplus]')
+  ]]
 
   -- Raid Icons
   local RaidIcon = self:CreateTexture(nil, 'OVERLAY')
@@ -262,7 +263,7 @@ local createStyle = function(self, unit)
   self:SetSize(self.cfg.width, self.cfg.height)
   self:SetPoint("CENTER", 0, -10)
   self:SetScale(cfg.scale) -- self:SetScale(UIParent:GetEffectiveScale() * 1)
-  core:setBackdrop(self, 2, 2, 2, 2)
+  core:setBackdrop(self, 1, 1, 1, 1)
   core:createDropShadow(self, 4, 4, {0, 0, 0, cfg.frames.shadow.opacity})
 end
 

@@ -74,6 +74,13 @@ function core:createNameString(self, font, size, outline, x, y, point, width)
   self.Name:SetWidth(width)
   self.Name:SetHeight(size)
 end
+function core:createNameString2(self, font, size, outline, x, y, point, width)
+  self.Name2 = core:createFontstring(self.Health, font, size, outline)
+  self.Name2:SetPoint(point, self.Health, x, y)
+  self.Name2:SetJustifyH(point)
+  self.Name2:SetWidth(width)
+  self.Name2:SetHeight(size)
+end
 
 -- Generates the Party Name String
 function core:createPartyNameString(self, font, size)
@@ -91,10 +98,9 @@ end
 
 function core:createHPPercentString(self, font, size, outline, x, y, point, layer)
   self.Health.percent = core:createFontstring(self.Health, font, size, outline, layer)
-  self.Health.percent:SetPoint(point, self.Health, x, y)
+  self.Health.percent:SetPoint(point, self.Health, "CENTER", x, y)
   self.Health.percent:SetJustifyH(point)
-  self.Health.percent:SetTextColor(1, 1, 1, 1)
-  self:Tag(self.Health.percent, '[lumen:hpperc]')
+  --self.Health.percent:SetTextColor(1, 1, 1, 1)
 end
 
 -- Generates the Power Percent String
@@ -102,7 +108,7 @@ function core:createPowerString(self, font, size, outline, x, y, point)
   self.Power.value = core:createFontstring(self.Power, font, size, outline)
   self.Power.value:SetPoint(point, self.Power, x, y)
   self.Power.value:SetJustifyH(point)
-  self:Tag(self.Power.value, '[lumen:powervalue]')
+  self:Tag(self.Power.value, '[powercolor][lumen:powervalue]')
 end
 
 -- Create Border

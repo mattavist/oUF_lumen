@@ -10,7 +10,7 @@ ns.m = m
 
 m.fonts = {
   font = mediaPath.."Asap-Bold.ttf",
-  font_big = mediaPath.."ROADWAY.ttf",
+  font_big = mediaPath.."LemonMilk.otf",
   symbols = "Interface\\AddOns\\oUF_lumen\\media\\symbols.otf",
   symbols_light = "Interface\\AddOns\\oUF_lumen\\media\\symbols_light.otf",
 }

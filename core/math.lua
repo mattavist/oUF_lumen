@@ -7,17 +7,17 @@ local floor, mod = floor, mod
 -- Shortens Numbers
 function core:shortNumber(v)
   if v > 1E10 then
-    return (floor(v/1E9)).."|cffbbbbbbb|r"
+    return (floor(v/1E9)).."b|r"
   elseif v > 1E9 then
-    return (floor((v/1E9)*10)/10).."|cffbbbbbbb|r"
+    return (floor((v/1E9)*10)/10).."b|r"
   elseif v > 1E7 then
-    return (floor(v/1E6)).."|cffbbbbbbm|r"
+    return (floor(v/1E6)).."m|r"
   elseif v > 1E6 then
-    return (floor((v/1E6)*10)/10).."|cffbbbbbbm|r"
+    return (floor((v/1E6)*10)/10).."m|r"
   elseif v > 1E4 then
-    return (floor(v/1E3)).."|cffbbbbbbk|r"
+    return (floor(v/1E3)).."k|r"
   elseif v > 1E3 then
-    return (floor((v/1E3)*10)/10).."|cffbbbbbbk|r"
+    return (floor((v/1E3)*10)/10).."k|r"
   else
     return v
   end
