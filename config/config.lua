@@ -40,7 +40,7 @@ cfg.frames = {
     power = {
       height = 2, -- Height of the Power Bar
       text = {
-        hideMax = true
+        hideMax = false
       },
     },
   },
@@ -118,7 +118,7 @@ cfg.units = {
       height = 3,
       classColored = true,
       gradientColored = false,
-      classColoredText = false,
+      classColoredText = true,
       reactionColored = true,
       frequentUpdates = true,
       smooth = true,

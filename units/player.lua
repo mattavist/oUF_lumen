@@ -18,9 +18,10 @@ local frame = "player"
 local PostUpdateHealth = function(health, unit, min, max)
   local self = health.__owner
 
+  self.Power.value:SetPoint("BOTTOMRIGHT", self.Health.percent, "BOTTOMLEFT", 0, 4)
+
   if cfg.units[frame].health.gradientColored then
     local r, g, b = oUF.ColorGradient(min, max, 1,0,0, 1,1,0, unpack(core:raidColor(unit)))
-    health:SetStatusBarColor(r, g, b)
     health.percent:SetTextColor(r, g, b, 1)
   end
 
@@ -386,32 +387,6 @@ local PostUpdateIcon =  function(icons, unit, icon, index, offset, filter, isDeb
 	end)
 end
 
---[[ Post Update BarTimer Aura
-local PostUpdateBarTimer = function(element, unit, button, index)
-  local name, _, count, dtype, duration, expirationTime = UnitAura(unit, index, button.filter)
-
-  if duration and duration > 0 then
-    button.timeLeft = expirationTime - GetTime()
-    button.bar:SetMinMaxValues(0, duration)
-    button.bar:SetValue(button.timeLeft)
-
-    if button.isDebuff then -- bar color
-      button.bar:SetStatusBarColor(1, 0.1, 0.2)
-    else
-      button.bar:SetStatusBarColor(0, 0.4, 1)
-    end
-  else
-    button.timeLeft = math.huge
-    button.bar:SetStatusBarColor(0.6, 0, 0.8) -- permenant buff / debuff
-  end
-
-  button.spell:SetText(name) -- set spell name
-
-  button:SetScript('OnUpdate', function(self, elapsed)
-    auras:BarTimer_OnUpdate(self, elapsed)
-  end)
-end]]
-
 -- Filter Buffs
 local PlayerCustomFilter = function(icons, unit, icon, name)
   if(filters.list[core.playerClass].buffs[name]) then
@@ -440,20 +415,14 @@ local createStyle = function(self)
   lum:globalStyle(self, "main")
 
   -- Text strings
-  --core:createNameString(self, font_big, cfg.fontsize + 6, "THINOUTLINE", 4, self.cfg.height / 3, "LEFT", self.cfg.width - 60)
-  --self:Tag(self.Name, '[lumen:name]')
-  --core:createHPString(self, font, cfg.fontsize, "THINOUTLINE", -4, 0, "RIGHT")
-  --self:Tag(self.Health.value, '[lumen:hpvalue]')
   core:createHPPercentString(self, font_big, cfg.fontsize + 30, "THICKOUTLINE", -100, 385, "RIGHT")
-
   self:Tag(self.Health.percent, '[lumen:hpperc]')
-  core:createPowerString(self, font, cfg.fontsize + 16, "THICKOUTLINE", -300, 500, "CENTER")
-  self.Power.value:SetPoint("BOTTOMRIGHT", self.Health.percent, "BOTTOMLEFT", 0, 0)
+  core:createPowerString(self, font, cfg.fontsize + 16, "THICKOUTLINE", 0, 0, "CENTER")
+  self.Power.value:SetPoint("CENTER", WorldFrame, "CENTER", 0, 0)
 
 
   -- Health & Power Updates
   self.Health.PostUpdate = PostUpdateHealth
-
 
   -- Out of Combat Frame Fading
   if self.cfg.fader.enable then
@@ -485,22 +454,6 @@ local createStyle = function(self)
 	if cfg.elements.altpowerbar.show then
 		CreateAlternativePower(self)
 	end
-
-  --[[ Combat indicator
-  local Combat = core:createFontstring(self, m.fonts.symbols, 20, "THINOUTLINE")
-  Combat:SetPoint("RIGHT", self, "LEFT", -8, 2)
-  Combat:SetText("")
-  Combat:SetTextColor(255/255, 26/255, 48/255)
-  self.CombatIndicator = Combat]]
-
-  --[[ Resting
-  if not core:isPlayerMaxLevel() then
-    local Resting = core:createFontstring(self.Health, font, cfg.fontsize -4, "THINOUTLINE")
-    Resting:SetPoint("CENTER", self.Health, "TOP", 0, 0)
-    Resting:SetText("zZz")
-    Resting:SetTextColor(255/255, 255/255, 255/255, 0.70)
-    self.RestingIndicator = Resting
-  end]]
 
   -- oUF_Experience
   if cfg.elements.experiencebar.show then
@@ -553,26 +506,6 @@ local createStyle = function(self)
     self.Reputation = Reputation
   end
 
-  -- oUF_ArcanePower
-  if cfg.elements.arcanepowerbar.show then
-    local ArtifactPower = CreateFrame('StatusBar', nil, self)
-    ArtifactPower:SetStatusBarTexture(m.textures.status_texture)
-    ArtifactPower:SetStatusBarColor(217/255, 205/255, 145/255)
-    ArtifactPower:SetPoint(cfg.elements.arcanepowerbar.pos.a1, cfg.elements.arcanepowerbar.pos.af,
-			cfg.elements.arcanepowerbar.pos.a2, cfg.elements.arcanepowerbar.pos.x, cfg.elements.arcanepowerbar.pos.y)
-    ArtifactPower:SetHeight(cfg.elements.arcanepowerbar.height)
-    ArtifactPower:SetWidth(cfg.elements.arcanepowerbar.width)
-    core:setBackdrop(ArtifactPower, 2, 2, 2, 2)
-    ArtifactPower:EnableMouse(true)
-    self.ArtifactPower = ArtifactPower
-
-    local ArtifactPowerBG = ArtifactPower:CreateTexture(nil, 'BORDER')
-    ArtifactPowerBG:SetAllPoints()
-    ArtifactPowerBG:SetAlpha(0.3)
-    ArtifactPowerBG:SetTexture(m.textures.bg_texture)
-    ArtifactPowerBG:SetColorTexture(1/3, 1/3, 1/3)
-  end
-
   -- Heal Prediction
   CreateHealPrediction(self)
 
@@ -586,16 +519,6 @@ local createStyle = function(self)
   debuffs.PostCreateIcon = PostCreateIcon
   debuffs.PostUpdateIcon = PostUpdateIcon
   self.Debuffs = debuffs
-
-  --[[ BarTimers Auras
-  local barTimers = auras:CreateBarTimer(self, 12, 12, 24, 2)
-  barTimers:SetPoint("BOTTOMLEFT", self, "TOPLEFT", -2, cfg.frames.secondary.height + 16)
-  barTimers.initialAnchor = "BOTTOMLEFT"
-  barTimers["growth-y"] = "UP"
-  barTimers.CustomFilter = PlayerCustomFilter
-  barTimers.PostUpdateIcon = PostUpdateBarTimer
-  self.Buffs = barTimers
-  ]]
 end
 
 -- -----------------------------------

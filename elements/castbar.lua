@@ -12,9 +12,9 @@ local font_big = m.fonts.font_big
 -- Castbar Custom Cast TimeText
 local CustomCastTimeText = function(self, duration)
   self.Time:SetText(("%.1f"):format(self.channeling and duration or self.max - duration))
-  if(self.__owner.mystyle == "player") then
+  --[[if(self.__owner.mystyle == "player") then
     self.Max:SetText(("%.1f "):format(self.max))
-  end
+  end]]
 end
 
 -- Castbar Check for Spell Interrupt
@@ -93,11 +93,11 @@ function core:CreateCastbar(self)
     castbar.Time:SetFont(font, cfg.fontsize + 1, "THINOUTLINE")
     castbar.Time:SetPoint("RIGHT", castbar, -6, 0)
 
-    castbar.Max = castbar:CreateFontString(nil, "OVERLAY")
+    --[[castbar.Max = castbar:CreateFontString(nil, "OVERLAY")
     castbar.Max:SetTextColor(200/255, 200/255, 200/255)
     castbar.Max:SetJustifyH("RIGHT")
     castbar.Max:SetFont(font, cfg.fontsize-2, "THINOUTLINE")
-    castbar.Max:SetPoint("RIGHT", castbar.Time, "LEFT", 0, 0)
+    castbar.Max:SetPoint("RIGHT", castbar.Time, "LEFT", 0, 0)]]
     castbar.CustomTimeText = CustomCastTimeText
 
     castbar.Icon:SetHeight(cfg.units.player.castbar.height)

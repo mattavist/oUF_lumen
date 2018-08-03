@@ -74,13 +74,6 @@ function core:createNameString(self, font, size, outline, x, y, point, width)
   self.Name:SetWidth(width)
   self.Name:SetHeight(size)
 end
-function core:createNameString2(self, font, size, outline, x, y, point, width)
-  self.Name2 = core:createFontstring(self.Health, font, size, outline)
-  self.Name2:SetPoint(point, self.Health, x, y)
-  self.Name2:SetJustifyH(point)
-  self.Name2:SetWidth(width)
-  self.Name2:SetHeight(size)
-end
 
 -- Generates the Party Name String
 function core:createPartyNameString(self, font, size)

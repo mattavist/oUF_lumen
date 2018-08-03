@@ -181,9 +181,9 @@ local createStyle = function(self, unit)
   self.RaidTargetIndicator = RaidIcon
 
   -- Targeted Arrow
-  local selectedColor = {50/255, 240/255, 210/255, 0.7}
+  local selectedColor = {255/255, 125/255, 10/255, 0.7}
   self.arrow = core:createFontstring(self, m.fonts.symbols_light, 32, "THINOUTLINE")
-  self.arrow:SetPoint("CENTER", self, "CENTER", 0, 62)
+  self.arrow:SetPoint("CENTER", self, "CENTER", 0, 31)
   self.arrow:SetText("")
   self.arrow:SetTextColor(unpack(selectedColor))
 

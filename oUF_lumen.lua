@@ -62,39 +62,8 @@ function CreateHealPrediction(self)
 end
 
 -- -----------------------------------
--- > BarTimers
--- -----------------------------------
-
-function CreateBarTimers(self, num, width, height, spacing)
-	local bars = CreateFrame("Frame", nil, self)
-	bars.num = num
-	bars.width = width
-  bars.height = height
-	bars.spacing = spacing or 9
-  bars:SetSize(width + 4, num * (height + spacing + 4))
-	-- bars.PostCreateBar = PostCreateBar
-	return bars
-end
-
--- -----------------------------------
 -- > FRAMES STYLE
 -- -----------------------------------
-
-local OnEnter = function(self)
-	--self:SetAlpha(1) -- Player frame fading
-
-  self.Highlight:Show()  -- Mouseover highlight Show
-  UnitFrame_OnEnter(self)
-end
-
-local OnLeave = function(self)
-	if cfg.units.player.fader.enable then -- Player frame fading
-		self:SetAlpha(cfg.units.player.fader.alpha)
-	end
-
-	self.Highlight:Hide()  -- Mouseover highlight Hide
-	UnitFrame_OnLeave(self)
-end
 
 -- The Shared Style Function
 function lum:globalStyle(self, type)
@@ -106,8 +75,6 @@ function lum:globalStyle(self, type)
 	end
 
   self:RegisterForClicks("AnyDown")
-  self:SetScript("OnEnter", OnEnter)
-  self:SetScript("OnLeave", OnLeave)
 
   -- HP Bar
   self.Health = CreateFrame("StatusBar", nil, self)
@@ -125,18 +92,7 @@ function lum:globalStyle(self, type)
   self.Health.bg:SetTexture(m.textures.bg_texture)
 
   -- Power Bar
-  self.Power = CreateFrame("StatusBar", nil, self)--[[
-	self.Power:SetHeight(cfg.frames[type].power.height)
-	self.Power:SetWidth(self.cfg.width)
-  self.Power:SetStatusBarTexture(m.textures.status_texture)
-  self.Power:GetStatusBarTexture():SetHorizTile(false)
-  self.Power:SetPoint("TOP", self.Health, "BOTTOM", 0, -cfg.frames.main.health.margin)
-	self.Power.frequentUpdates = self.cfg.power.frequentUpdates
-
-  self.Power.bg = self.Power:CreateTexture(nil, "BACKGROUND")
-  self.Power.bg:SetAllPoints(self.Power)
-  self.Power.bg:SetTexture(m.textures.bg_texture)
-  self.Power.bg:SetAlpha(0.20)]]
+  self.Power = CreateFrame("StatusBar", nil, self)
 
   -- Colors
   if self.cfg.health.classColored then self.Health.colorClass = true end
@@ -153,17 +109,8 @@ function lum:globalStyle(self, type)
   self.Power.colorDisconnected = true
   self.Power.colorHappiness = false
 
-  -- Mouseover Highlight
-  self.Highlight = self.Health:CreateTexture(nil, "OVERLAY")
-  self.Highlight:SetAllPoints(self)
-  self.Highlight:SetTexture(m.textures.white_square)
-  self.Highlight:SetVertexColor(1,1,1,.05)
-  self.Highlight:SetBlendMode("ADD")
-  self.Highlight:Hide()
-
   -- Smooth Update
   self.Health.Smooth = self.cfg.health.smooth
-  self.Power.Smooth = self.cfg.power.smooth
 
   -- Mirror bars
   core:MirrorBars()

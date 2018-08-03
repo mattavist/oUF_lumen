@@ -15,70 +15,41 @@ local frame = "target"
 -- Post Health Update
 local PostUpdateHealth = function(health, unit, min, max)
   local self = health.__owner
-  local width = 1.1 * self.Name:GetStringWidth()
+  local width = 1.2 * self.Name:GetStringWidth()
+  local reaction = UnitReaction(self.unit, "PLAYER")
 
+  self.Health:SetAlpha(1)
   self:SetWidth(width)
   self.Health:SetWidth(width)
+  self.Power.value:SetPoint("BOTTOMLEFT", self.Health.percent, "BOTTOMRIGHT", 0, 4)
 
   if cfg.units[frame].health.gradientColored then
     local r, g, b = oUF.ColorGradient(min, max, 1,0,0, 1,1,0, unpack(core:raidColor(unit)))
     health:SetStatusBarColor(r, g, b)
   end
 
+  -- Horde/Alliance/Neutral Healthbar
+  if UnitIsPlayer(self.unit) then
+    self.Health:SetStatusBarColor(unpack(ns.oUF.colors.reaction[reaction]))
+  else
+    self.Health:SetStatusBarColor(1, 1, 1, 1)
+  end
+
   -- Class colored text
   if cfg.units[frame].health.classColoredText then
-    self.Name:SetTextColor(unpack(core:raidColor(unit)))
-  end
-
-end
-
--- Post Update Aura Icon
-local PostUpdateIcon = function(icons, unit, icon, index, offset, filter, isDebuff)
-	local name, _, count, dtype, duration, expirationTime = UnitAura(unit, index, icon.filter)
-
-	if duration and duration > 0 then
-		icon.timeLeft = expirationTime - GetTime()
-
-	else
-		icon.timeLeft = math.huge
-	end
-
-	icon:SetScript('OnUpdate', function(self, elapsed)
-		auras:AuraTimer_OnUpdate(self, elapsed)
-	end)
-end
-
--- Post Update BarTimer Aura
-local PostUpdateBarTimer = function(element, unit, button, index)
-  local name, _, count, dtype, duration, expirationTime = UnitAura(unit, index, button.filter)
-
-  if duration and duration > 0 then
-    button.timeLeft = expirationTime - GetTime()
-    button.bar:SetMinMaxValues(0, duration)
-    button.bar:SetValue(button.timeLeft)
-
-    if button.isDebuff then -- bar color
-      button.bar:SetStatusBarColor(1, 0.1, 0.2)
+    if not UnitIsPlayer(self.unit) then
+      self.Name:SetTextColor(unpack(ns.oUF.colors.reaction[reaction]))
+      self.Health.percent:SetTextColor(unpack(ns.oUF.colors.reaction[reaction]))
     else
-      button.bar:SetStatusBarColor(0, 0.4, 1)
+      self.Name:SetTextColor(unpack(core:raidColor(unit)))
+      if reaction >= 5 then
+        self.Health.percent:SetTextColor(unpack(core:raidColor(unit)))
+      else
+        self.Health.percent:SetTextColor(unpack(ns.oUF.colors.reaction[reaction]))
+      end
     end
-  else
-    button.timeLeft = math.huge
-    button.bar:SetStatusBarColor(0.6, 0, 0.8) -- permenant buff / debuff
   end
 
-  button.spell:SetText(name) -- set spell name
-
-  button:SetScript('OnUpdate', function(self, elapsed)
-    auras:BarTimer_OnUpdate(self, elapsed)
-  end)
-end
-
--- Filter Buffs
-local TargetCustomFilter = function(icons, unit, icon, name)
-  if(filters.list[core.playerClass].debuffs[name] and icon.isPlayer) then
-    return true
-  end
 end
 
 -- -----------------------------------
@@ -94,53 +65,28 @@ local createStyle = function(self)
   -- Texts
   core:createNameString(self, font_big, cfg.fontsize + 20, "THICKOUTLINE", 0, -4, "CENTER", self.cfg.width * 3)
   self:Tag(self.Name, '[lumen:name]')
-  ChatFrame1:AddMessage(self.Name:GetStringWidth())
   core:createHPPercentString(self, font_big, cfg.fontsize + 30, "THICKOUTLINE", 100, 171, "LEFT")
-
-  self:Tag(self.Health.percent, '[raidcolor][lumen:hpperc]')
-  self:SetWidth(self.Name:GetStringWidth())
+  self:Tag(self.Health.percent, '[lumen:hpperc]')
+  core:createPowerString(self, font, cfg.fontsize + 16, "THICKOUTLINE", 0, 0, "CENTER")
+  self.Power.value:SetPoint("CENTER", WorldFrame, "CENTER", 0, 0)
 
   -- Health & Power Updates
   self.Health.PostUpdate = PostUpdateHealth
-
-  --[[ Buffs
-  local buffs = auras:CreateAura(self, 8, 1, cfg.frames.secondary.height + 4, 2)
-  buffs:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, 2)
-  buffs.initialAnchor = "BOTTOMLEFT"
-  buffs["growth-x"] = "RIGHT"
-  buffs.showStealableBuffs = true
-  buffs.PostUpdateIcon = PostUpdateIcon
-  self.Buffs = buffs]]
 
   -- Castbar
     if self.cfg.castbar.enable then
       core:CreateCastbar(self)
     end
 
-  -- Quest Icon
-  local QuestIcon = core:createFontstring(self, font, 26, "THINOUTLINE")
-  QuestIcon:SetPoint("LEFT", self.Health, "RIGHT", 5, -2)
-  QuestIcon:SetText("!")
-  QuestIcon:SetTextColor(238/255, 217/255, 43/255)
-  self.QuestIndicator = QuestIcon
 
   -- Raid Icons
   local RaidIcon = self:CreateTexture(nil, 'OVERLAY')
-  RaidIcon:SetPoint('LEFT', self, 'RIGHT', 8, 0)
+  RaidIcon:SetPoint('BOTTOMLEFT', self.Health.percent, 'BOTTOMRIGHT', 8, 9)
   RaidIcon:SetSize(20, 20)
   self.RaidTargetIndicator = RaidIcon
 
   -- Heal Prediction
   CreateHealPrediction(self)
-
-  -- BarTimers Auras
-  local barTimers = auras:CreateBarTimer(self, 12, 12, 24, 2)
-  barTimers:SetPoint("BOTTOMLEFT", self, "TOPLEFT", -2, cfg.frames.secondary.height + 16)
-  barTimers.initialAnchor = "BOTTOMLEFT"
-  barTimers["growth-y"] = "UP"
-  barTimers.CustomFilter = TargetCustomFilter
-  barTimers.PostUpdateIcon = PostUpdateBarTimer
-  self.Debuffs = barTimers
 end
 
 -- -----------------------------------
