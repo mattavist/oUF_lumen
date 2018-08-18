@@ -320,4 +320,9 @@ cfg.elements = {
   altpowerbar = {
     show = true
   },
+  
+  artifactpowerbar = {
+    show =true
+  },
+
 }

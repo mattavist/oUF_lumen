@@ -24,11 +24,11 @@ end
 local PostUpdateIcon = function(icons, unit, icon, index, offset, filter, isDebuff)
 	local name, _, _, count, dtype, duration, expirationTime = UnitAura(unit, index, icon.filter)
 
-	if duration and duration > 0 then
+	--[[if duration and duration > 0 then
 		icon.timeLeft = expirationTime - GetTime()
 	else
 		icon.timeLeft = math.huge
-	end
+	end]]
 
 	icon:SetScript('OnUpdate', function(self, elapsed)
 		auras:AuraTimer_OnUpdate(self, elapsed)

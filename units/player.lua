@@ -460,7 +460,8 @@ local createStyle = function(self)
     local Experience = CreateFrame('StatusBar', nil, self)
     Experience:SetStatusBarTexture(m.textures.status_texture)
     Experience:SetPoint(cfg.elements.experiencebar.pos.a1, cfg.elements.experiencebar.pos.af,
-			cfg.elements.experiencebar.pos.a2, cfg.elements.experiencebar.pos.x, cfg.elements.experiencebar.pos.y)
+			cfg.elements.experiencebar.pos.a2, cfg.elements.experiencebar.pos.x, 
+      cfg.elements.experiencebar.pos.y - cfg.elements.experiencebar.height * 3)
     Experience:SetHeight(cfg.elements.experiencebar.height)
     Experience:SetWidth(cfg.elements.experiencebar.width)
 
@@ -481,6 +482,27 @@ local createStyle = function(self)
 
     self.Experience = Experience
     self.Experience.Rested = Rested
+  end
+
+  -- oUF_ArtifactPower
+  if cfg.elements.artifactpowerbar.show then
+    local ArtifactPower = CreateFrame('StatusBar', nil, self)
+    ArtifactPower:SetStatusBarTexture(m.textures.status_texture)
+    ArtifactPower:SetStatusBarColor(217/255, 205/255, 145/255)
+    ArtifactPower:SetPoint(cfg.elements.experiencebar.pos.a1, cfg.elements.experiencebar.pos.af,
+      cfg.elements.experiencebar.pos.a2, cfg.elements.experiencebar.pos.x, 
+      cfg.elements.experiencebar.pos.y)
+    ArtifactPower:SetHeight(cfg.elements.experiencebar.height)
+    ArtifactPower:SetWidth(cfg.elements.experiencebar.width)
+    core:setBackdrop(ArtifactPower, 2, 2, 2, 2)
+    ArtifactPower:EnableMouse(true)
+    self.ArtifactPower = ArtifactPower
+
+    local ArtifactPowerBG = ArtifactPower:CreateTexture(nil, 'BORDER')
+    ArtifactPowerBG:SetAllPoints()
+    ArtifactPowerBG:SetAlpha(0.3)
+    ArtifactPowerBG:SetTexture(m.textures.bg_texture)
+    ArtifactPowerBG:SetColorTexture(1/3, 1/3, 1/3)
   end
 
   -- oUF_Reputation
