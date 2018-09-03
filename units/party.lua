@@ -67,7 +67,7 @@ local PostUpdatePower = function(power, unit, min, max)
   local dead, disconnnected, ghost = UnitIsDead(unit), not UnitIsConnected(unit), UnitIsGhost(unit)
 
   if disconnnected or dead or ghost then
-			power:SetValue(max)
+			--power:SetValue(max)
 			if(dead) then
         power:SetStatusBarColor(1, 0, 0, .7)
       elseif(disconnnected) then

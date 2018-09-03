@@ -29,14 +29,14 @@ local PostUpdateHealth = function(health, unit, min, max)
   end
 
   -- Horde/Alliance/Neutral Healthbar
-  if UnitIsPlayer(self.unit) then
+  if UnitIsPlayer(self.unit) and reaction then
     self.Health:SetStatusBarColor(unpack(ns.oUF.colors.reaction[reaction]))
   else
     self.Health:SetStatusBarColor(1, 1, 1, 1)
   end
 
   -- Class colored text
-  if cfg.units[frame].health.classColoredText then
+  if cfg.units[frame].health.classColoredText and reaction then
     if not UnitIsPlayer(self.unit) then
       self.Name:SetTextColor(unpack(ns.oUF.colors.reaction[reaction]))
       self.Health.percent:SetTextColor(unpack(ns.oUF.colors.reaction[reaction]))

@@ -322,7 +322,7 @@ cfg.elements = {
   },
   
   artifactpowerbar = {
-    show =true
+    show = true
   },
 
 }
